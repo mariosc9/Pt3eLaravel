@@ -20,20 +20,21 @@ Route::get('/auth/redirect', function () {
 Route::get('/auth/callback', function () {
     $googleUser = Socialite::driver('google')->user();
 
-    $user = User::where('email', $googleUser->email)->first();
+    /*$user = User::updateOrCreate([
+        'id' => $googleUser->id,
+    ], [
+        'name' => $googleUser->name,
+        'email' => $googleUser->email,
+        //'remember_token' => $googleUser->token,
+        //'google_refresh_token' => $googleUser->refreshToken,
+    ]);*/
 
-    /*  if (!$user) {
-        // User doesn't exist, create a new one
-        $user = User::create([
-            'name' => $googleUser->name,
-            'email' => $googleUser->email,
-            // Add any other necessary fields
-        ]);
-    }
-    */
-    Auth::login($user);
-
+$user = User::where('email', $googleUser->email)->first();
+if ($user){
+    Auth::login($googleUser);
     return redirect('/dashboard');
+}
+
 });
 
 
