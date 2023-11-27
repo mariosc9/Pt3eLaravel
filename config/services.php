@@ -33,6 +33,6 @@ return [
     'google' => [
         'client_id' => env('1019511551691-c02j48c98bgnhm8l1ldfhsqvd9vm7s3q.apps.googleusercontent.com '),
         'client_secret' => env('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'),
-        'redirect' => 'http://example.com/callback-url',
+        'redirect' => 'https://phplaravel-1173044-4104184.cloudwaysapps.com/auth/callback',
     ],
 ];
