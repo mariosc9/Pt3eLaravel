@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Http\Response;
 
 Route::get('/auth/redirect', function () {
     return Socialite::driver('google')->redirect();
@@ -29,12 +31,14 @@ Route::get('/auth/callback', function () {
         //'google_refresh_token' => $googleUser->refreshToken,
     ]);*/
 
-$user = User::where('email', $googleUser->email)->first();
-if ($user){
-    Auth::login($user);
-    return redirect('/dashboard');
-}
-
+    $user = User::where('email', $googleUser->email)->first();
+    if ($user) {
+        Auth::login($user);
+        return redirect('/dashboard');
+    } else {
+        // Usuario no autorizado, puedes redirigir a una página de error o mostrar un mensaje.
+        abort(Response::HTTP_UNAUTHORIZED, 'Usuario no autorizado');
+    }
 });
 
 
