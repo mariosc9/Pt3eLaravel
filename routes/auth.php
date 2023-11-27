@@ -31,7 +31,7 @@ Route::get('/auth/callback', function () {
 
 $user = User::where('email', $googleUser->email)->first();
 if ($user){
-    Auth::login($googleUser);
+    Auth::login($user);
     return redirect('/dashboard');
 }
 
