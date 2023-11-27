@@ -36,8 +36,8 @@ Route::get('/auth/callback', function () {
         Auth::login($user);
         return redirect('/dashboard');
     } else {
-        // Usuario no autorizado, puedes redirigir a una página de error o mostrar un mensaje.
-        abort(Response::HTTP_UNAUTHORIZED, 'Usuario no autorizado');
+       //throw new UserNameNotFoundException;
+       throw new \Exception('usuari no trobat');
     }
 });
 
