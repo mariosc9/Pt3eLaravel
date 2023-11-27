@@ -44,4 +44,6 @@
             </x-primary-button>
         </div>
     </form>
+
+    <a href='google.redirect' type="button">Sign in with Google</a>
 </x-guest-layout>
