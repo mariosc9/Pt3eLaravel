@@ -20,18 +20,21 @@ Route::get('/auth/redirect', function () {
 Route::get('/auth/callback', function () {
     $googleUser = Socialite::driver('google')->user();
 
-    $user = User::updateOrCreate([
-        'client_id' => $googleUser->id,
+    /*$user = User::updateOrCreate([
+        'id' => $googleUser->id,
     ], [
         'name' => $googleUser->name,
         'email' => $googleUser->email,
-        'google_token' => $googleUser->token,
-        'google_refresh_token' => $googleUser->refreshToken,
-    ]);
+        //'remember_token' => $googleUser->token,
+        //'google_refresh_token' => $googleUser->refreshToken,
+    ]);*/
 
-    Auth::login($user);
-
+$user = User::where('email', $googleUser->email);
+if ($user){
+    Auth::login($googleUser);
     return redirect('/dashboard');
+}
+
 });
 
 
